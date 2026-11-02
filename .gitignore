@@ -1,1 +1,13 @@
 .DS_Store
+
+# IntelliJ
+.idea/
+*.iml
+out/
+
+# Build
+*.class
+
+# Generated output
+output/*
+!output/.gitkeep
