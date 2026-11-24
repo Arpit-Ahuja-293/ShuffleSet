@@ -1,7 +1,8 @@
 # Edge case samples
 
 Columns: 19 Exportify columns + `BPM`, `Camelot`, `Energy` (0-100).
-BPM/Camelot/Energy values here are test values, not real Tunebat data.
+Real songs use their Tunebat values from `main.csv`, except the one field each row deliberately breaks.
+Rows 2, 3, 4 and 12 are fictional test tracks with made-up values.
 
 ## edge-cases.csv
 
@@ -19,7 +20,7 @@ BPM/Camelot/Energy values here are test values, not real Tunebat data.
 | 10 | I Will Survive | Energy `150` (valid is 0-100) | Skipped, warning |
 | 11 | Boogie Wonderland | Duplicate of row 1 | Skipped, warning; first kept |
 | 12 | Half Time Groove | 64 BPM (half of 128) | Parsed; scoring may treat as 128 |
-| 13 | La Mouche | Values with spaces, lowercase `8a` | Parsed after trim/uppercase: 124, 8A, 77 |
+| 13 | La Mouche | Values with spaces, lowercase `8a` | Parsed after trim/uppercase: 131, 5A, 68 |
 
 Valid tracks after parsing: rows 1, 2, 3, 4, 12, 13 (6 tracks).
 
