@@ -1,5 +1,6 @@
 package shuffleset;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,9 +18,14 @@ public class Main {
                 System.out.println(tracks.get(i).toString());
             }
             System.out.println("Loaded " + tracks.size() + " tracks.");
+
+            String baseName = new File(filename).getName().replace(".csv", "");
+            String outputPath = "output/" + baseName + "-setlist.txt";
+            OutputWriter.write(tracks, filename, outputPath);
+            System.out.println("Set list written to " + outputPath);
             scanner.close();
         } catch (IOException e) {
-            System.err.println("Error: could not read file " + e.getMessage());
+            System.err.println("Error: file problem - " + e.getMessage());
             System.exit(1);
         } catch (IllegalArgumentException e) {
             System.err.println("Error: " + e.getMessage());
