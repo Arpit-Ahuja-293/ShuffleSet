@@ -1,7 +1,29 @@
 package shuffleset;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("ShuffleSet running");
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter filename: ");
+            String filename = scanner.nextLine();
+
+            ArrayList<Track> tracks = TrackParser.parse(filename);
+            System.out.println("Track Info: ");
+            for(int i = 0; i < tracks.size(); ++i) {
+                System.out.println(tracks.get(i).toString());
+            }
+            System.out.println("Loaded " + tracks.size() + " tracks.");
+            scanner.close();
+        } catch (IOException e) {
+            System.err.println("Error: could not read file " + e.getMessage());
+            System.exit(1);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error: " + e.getMessage());
+            System.exit(1);
+        }
     }
 }

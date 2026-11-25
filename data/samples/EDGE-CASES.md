@@ -21,6 +21,7 @@ Rows 2, 3, 4 and 12 are fictional test tracks with made-up values.
 | 11 | Boogie Wonderland | Duplicate of row 1 | Skipped, warning; first kept |
 | 12 | Half Time Groove | 64 BPM (half of 128) | Parsed; scoring may treat as 128 |
 | 13 | La Mouche | Values with spaces, lowercase `8a` | Parsed after trim/uppercase: 131, 5A, 68 |
+| 14 | Keep Forgettin' | Short row: only 4 of 22 columns | Skipped, warning "wrong number of columns" |
 
 Valid tracks after parsing: rows 1, 2, 3, 4, 12, 13 (6 tracks).
 
