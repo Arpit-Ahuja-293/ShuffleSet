@@ -36,7 +36,7 @@ public class TrackParser {
                     continue;
                 }
                 String uriValue = record.get("Track URI").trim();
-                String artist = record.get("Artist Name(s)").trim();
+                String artist = record.get("Artist Name(s)").trim().replace("\\,", ",");
                 String camelotVal;
                 camelotVal = record.get("Camelot").trim().toUpperCase();
                 boolean validCamelot = false;

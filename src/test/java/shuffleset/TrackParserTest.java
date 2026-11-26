@@ -27,7 +27,7 @@ public class TrackParserTest {
     void badHeaderNamesMissingColumn() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
                 () -> TrackParser.parse(directory + "bad-header.csv"));
-        assertTrue(e.getMessage().contains("BPM"));
+        assertEquals("Missing required column: BPM", e.getMessage());
     }
 
     @Test
@@ -54,8 +54,30 @@ public class TrackParserTest {
     }
 
     @Test
+    void utfAccentCaseTwo() throws IOException {
+        assertEquals("Röyksopp", findName(TrackParser.parse(directory + "edge-cases.csv"), "Café Del Mar").getArtist());
+    }
+
+    @Test
     void escapedCommaInArtist() throws IOException {
-        assertEquals("Earth\\, Wind & Fire, The Emotions", findName(TrackParser.parse(directory + "edge-cases.csv"), "Boogie Wonderland (with The Emotions)").getArtist());
+        assertEquals("Earth, Wind & Fire, The Emotions", findName(TrackParser.parse(directory + "edge-cases.csv"), "Boogie Wonderland (with The Emotions)").getArtist());
+    }
+
+    @Test
+    void invalidRowsSkipped() throws IOException {
+        ArrayList<Track> tracks = TrackParser.parse(directory + "edge-cases.csv");
+        String[] skipped = {"Love Sensation", "Good Times", "Hollywood Swinging",
+                "Disco Inferno", "Higher Ground", "I Will Survive", "Keep Forgettin'"};
+        for (String name : skipped) {
+            for (Track track : tracks) {
+                assertNotEquals(name, track.getName(), name + " should have been skipped");
+            }
+        }
+    }
+
+    @Test
+    void halfTimeBpmKept() throws IOException {
+        assertEquals(64, findName(TrackParser.parse(directory + "edge-cases.csv"), "Half Time Groove").getBpm());
     }
 
     @Test
@@ -73,12 +95,46 @@ public class TrackParserTest {
         assertEquals(68, findName(TrackParser.parse(directory + "edge-cases.csv"), "La Mouche").getEnergy());
     }
 
+    @Test
+    void emptyCsvThrows() {
+        assertThrows(IllegalArgumentException.class,
+                () -> TrackParser.parse(directory + "empty.csv"));
+    }
+
+    @Test
+    void boundaryValuesKept() throws IOException {
+        ArrayList<Track> tracks = TrackParser.parse(directory + "boundaries.csv");
+        assertEquals("12B", findName(tracks, "Camelot Max").getCamelot());
+        assertEquals("1A", findName(tracks, "Camelot Min").getCamelot());
+        assertEquals(0, findName(tracks, "Energy Zero").getEnergy());
+        assertEquals(100, findName(tracks, "Energy Max").getEnergy());
+    }
+
+    @Test
+    void outOfRangeValuesSkipped() throws IOException {
+        ArrayList<Track> tracks = TrackParser.parse(directory + "boundaries.csv");
+        assertEquals(4, tracks.size());
+        String[] skipped = {"Camelot Zero", "Camelot No Letter", "Negative BPM"};
+        for (String name : skipped) {
+            for (Track track : tracks) {
+                assertNotEquals(name, track.getName(), name + " should have been skipped");
+            }
+        }
+    }
+
+    @Test
+    void duplicateKeepsFirst() throws IOException {
+        Track boogie = findName(TrackParser.parse(directory + "edge-cases.csv"), "Boogie Wonderland (with The Emotions)");
+        assertNotEquals("Earth, Wind & Fire (duplicate)", boogie.getArtist());
+    }
+
     private Track findName(ArrayList<Track> tracks, String name) {
         for (Track track : tracks) {
             if (track.getName().equals(name)) {
                 return track;
             }
         }
+        fail("Track not found: " + name);
         return null;
     }
 }
