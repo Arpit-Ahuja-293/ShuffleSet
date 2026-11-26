@@ -8,7 +8,10 @@ import java.util.ArrayList;
 
 public class OutputWriter {
     public static void write(ArrayList<Track> tracks, String inputPath, String outputPath) throws IOException {
-        boolean made = new File(outputPath).getParentFile().mkdirs();
+        File parent = new File(outputPath).getParentFile();
+        if (parent != null) {
+            parent.mkdirs();
+        }
         try(PrintWriter out = new PrintWriter(new FileWriter(outputPath))) {
             out.println("ShuffleSet - Set List");
             out.println("Source:  " + inputPath);
