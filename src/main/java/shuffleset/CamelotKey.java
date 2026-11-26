@@ -25,7 +25,31 @@ public class CamelotKey {
         else return 0;
     }
 
-//    public static int String tip(Track a, Track b) {
-//
-//    }
+    public static String tip(Track a, Track b) {
+        int val = score(a, b);
+        String clashTip = "Key clash – quick cut or mix on a drum break";
+        String diagnolTip = "Diagonal – short blend, transition quickly";
+        String energyBoost = "Energy lift – use a shorter blend";
+        String otherLetter = "Mood shift minor↔major – blend on a quiet section";
+        String neighbor = "Smooth – blend over 16–32 bars";
+        String sameKey = "Perfect match – long blend works";
+
+        if(val == 0) {
+            return clashTip;
+        } else if(val == 30) {
+            return diagnolTip;
+        } else if(val == 50) {
+            return energyBoost;
+        } else if(val == 80) {
+            if(a.getCamelotLetter() == b.getCamelotLetter()) {
+                return neighbor;
+            } else {
+                return otherLetter;
+            }
+        } else if(val == 100) {
+            return sameKey;
+        } else {
+            throw new IllegalStateException("Unexpected Score " + val);
+        }
+    }
 }
