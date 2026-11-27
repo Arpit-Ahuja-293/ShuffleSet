@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public class SetOrderMaker {
     public static ArrayList<Track> order(ArrayList<Track> tracks) {
+        if (tracks.isEmpty()) {
+            return new ArrayList<>();
+        }
         ArrayList<Track> bestSet = null;
         int bestTotal = -1;
 
@@ -35,5 +38,13 @@ public class SetOrderMaker {
             }
         }
         return bestSet;
+    }
+
+    public static int total(ArrayList<Track> tracks) {
+        int sum = 0;
+        for (int i = 0; i < tracks.size() - 1; ++i) {
+            sum += TransitionScore.score(tracks.get(i), tracks.get(i + 1));
+        }
+        return sum;
     }
 }
