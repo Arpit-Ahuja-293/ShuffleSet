@@ -11,7 +11,7 @@ I got into DJ'ing  and mixing music near the start of my senior year, and I thou
 - Creates a terminal based prompt asking user to input a CSV file of setlist information including BPM, Key, and energy levels.
 - The program parses this CSV and uses Camelot Key Logic to create a key compatibility score for each pair.
 - BPM, key compatability, and energy levels are used to give each pair of songs a transition score.
-- The transition scores between songs are minimized to provide a setlist with the smoothest transitions.
+- The transition scores between songs are maximized to provide a setlist with the smoothest transitions.
 - This optimized setlist is returned as a txt file in the terminal to the user.
 
 ![System diagram](docs/System-Diagram.png)
