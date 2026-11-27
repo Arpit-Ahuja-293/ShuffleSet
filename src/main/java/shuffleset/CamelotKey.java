@@ -30,7 +30,7 @@ public class CamelotKey {
         String clashTip = "Key clash – quick cut or mix on a drum break";
         String diagnolTip = "Diagonal – short blend, transition quickly";
         String energyBoost = "Energy lift – use a shorter blend";
-        String otherLetter = "Mood shift minor↔major – blend on a quiet section";
+        String otherLetter = "Mood shift minor to major – blend on a quiet section";
         String neighbor = "Smooth – blend over 16–32 bars";
         String sameKey = "Perfect match – long blend works";
 

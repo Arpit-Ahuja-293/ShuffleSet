@@ -20,9 +20,10 @@ public class Main {
             }
             String baseName = new File(filename).getName().replace(".csv", "");
             String outputPath = "output/" + baseName + "-setlist.txt";
-            OutputWriter.write(orderedTracks, filename, outputPath);
+            int originalTotal = SetOrderMaker.total(tracks);
+            OutputWriter.write(orderedTracks, filename, outputPath, originalTotal);
             System.out.println("Set list written to " + outputPath);
-            System.out.println("Score: " + SetOrderMaker.total(tracks) + " -> " + SetOrderMaker.total(orderedTracks));
+            System.out.println("Score: " + originalTotal + " -> " + SetOrderMaker.total(orderedTracks));
             scanner.close();
         } catch (IOException e) {
             System.err.println("Error: file problem - " + e.getMessage());

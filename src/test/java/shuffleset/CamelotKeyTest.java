@@ -7,7 +7,7 @@ public class CamelotKeyTest {
     private final String clashTip = "Key clash – quick cut or mix on a drum break";
     private final String diagnolTip = "Diagonal – short blend, transition quickly";
     private final String energyBoost = "Energy lift – use a shorter blend";
-    private final String otherLetter = "Mood shift minor↔major – blend on a quiet section";
+    private final String otherLetter = "Mood shift minor to major – blend on a quiet section";
     private final String neighbor = "Smooth – blend over 16–32 bars";
     private final String sameKey = "Perfect match – long blend works";
 
