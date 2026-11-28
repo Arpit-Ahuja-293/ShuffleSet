@@ -23,11 +23,46 @@ I got into DJ'ing  and mixing music near the start of my senior year, and I thou
 
 ## Setup
 
-TBD
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/Arpit-Ahuja-293/ShuffleSet.git
+   cd ShuffleSet
+   ```
+2. Compile:
+   ```bash
+   javac -cp "lib/*" -d out/production/ShuffleSet src/main/java/shuffleset/*.java
+   ```
 
 ## Usage
 
-TBD
+1. **Make your CSV.** Export a Spotify playlist with [Exportify](https://exportify.net). Then add three columns at the end, using values from [Tunebat](https://tunebat.com):
+    - `BPM`: tempo, a whole number greater than 0
+    - `Camelot`: key in Camelot notation, `1A`–`12B`
+    - `Energy`: 0–100
+
+   See `data/samples/main.csv` for an example.
+
+2. **Run:**
+   ```bash
+   java -cp "out/production/ShuffleSet:lib/*" shuffleset.Main
+   ```
+   When it asks for a filename, enter the path to your CSV, for example `data/samples/main.csv`.
+
+3. **Read the output.** The terminal shows the new order and the score before and after. The full set list is saved to `output/<name>-setlist.txt`. It has:
+    - the ordered track table
+    - each transition with its score and a mixing tip
+    - a summary of the total score, before vs. after, and the average
+    - weak spots: transitions scoring below 50
+
+Rows with bad values (missing BPM, invalid key, energy out of range, duplicates) are skipped with a warning.
+
+### Running tests
+```bash
+javac -cp "lib/*" -d out/test src/main/java/shuffleset/*.java src/test/java/shuffleset/*.java
+java -jar lib/junit-platform-console-standalone-1.14.4.jar execute \
+  -cp "out/test:lib/commons-csv-1.14.1.jar:lib/commons-io-2.20.0.jar:lib/commons-codec-1.19.0.jar" \
+  --scan-classpath
+```
 
 ## Roadmap
 
