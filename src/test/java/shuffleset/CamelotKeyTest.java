@@ -4,12 +4,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CamelotKeyTest {
-    private final String clashTip = "Key clash – quick cut or mix on a drum break";
-    private final String diagnolTip = "Diagonal – short blend, transition quickly";
-    private final String energyBoost = "Energy lift – use a shorter blend";
-    private final String otherLetter = "Mood shift minor to major – blend on a quiet section";
-    private final String neighbor = "Smooth – blend over 16–32 bars";
-    private final String sameKey = "Perfect match – long blend works";
+    private final String clashTip = "Key clash - quick cut or mix on a drum break";
+    private final String diagnolTip = "Diagonal - short blend, transition quickly";
+    private final String energyBoost = "Energy lift - use a shorter blend";
+    private final String energyDrop = "Energy drop - use a shorter blend";
+    private final String otherLetter = "Mood shift minor to major - blend on a quiet section";
+    private final String majorToMinor = "Mood shift major to minor - blend on a quiet section";
+    private final String neighbor = "Smooth - blend over 16-32 bars";
+    private final String sameKey = "Perfect match - long blend works";
 
     @Test
     void sameKeyTest() {
@@ -44,11 +46,27 @@ public class CamelotKeyTest {
     }
 
     @Test
+    void neighborMajorToMinorTest() {
+        Track a = new Track("u1", "First", "Artist", 120, "1B", 50);
+        Track b = new Track("u2", "Second", "Artist", 120, "1A", 50);
+        assertEquals(80, CamelotKey.score(a, b));
+        assertEquals(majorToMinor, CamelotKey.tip(a, b));
+    }
+
+    @Test
     void energyTest() {
         Track a = new Track("u1", "First", "Artist", 120, "8A", 50);
         Track b = new Track("u2", "Second", "Artist", 120, "10A", 50);
         assertEquals(50, CamelotKey.score(a, b));
         assertEquals(energyBoost, CamelotKey.tip(a, b));
+    }
+
+    @Test
+    void energyDropTest() {
+        Track a = new Track("u1", "First", "Artist", 120, "1A", 50);
+        Track b = new Track("u2", "Second", "Artist", 120, "11A", 50);
+        assertEquals(50, CamelotKey.score(a, b));
+        assertEquals(energyDrop, CamelotKey.tip(a, b));
     }
 
     @Test

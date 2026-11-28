@@ -127,7 +127,7 @@ public class OutputWriterTest {
         tracks.add(new Track("u2", "Second", "B", 90, "2B", 20));
         ArrayList<String> lines = writeAndRead(tracks);
         assertTrue(lines.contains("Weak Spots (score below 50)"));
-        assertTrue(lines.contains("1 -> 2 (score 0): Key clash – quick cut or mix on a drum break"));
+        assertTrue(lines.contains("1 -> 2 (score 0): Key clash - quick cut or mix on a drum break"));
         assertFalse(lines.contains("No weak transitions"));
     }
 

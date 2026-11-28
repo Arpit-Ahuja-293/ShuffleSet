@@ -27,24 +27,33 @@ public class CamelotKey {
 
     public static String tip(Track a, Track b) {
         int val = score(a, b);
-        String clashTip = "Key clash – quick cut or mix on a drum break";
-        String diagnolTip = "Diagonal – short blend, transition quickly";
-        String energyBoost = "Energy lift – use a shorter blend";
-        String otherLetter = "Mood shift minor to major – blend on a quiet section";
-        String neighbor = "Smooth – blend over 16–32 bars";
-        String sameKey = "Perfect match – long blend works";
+        String clashTip = "Key clash - quick cut or mix on a drum break";
+        String diagnolTip = "Diagonal - short blend, transition quickly";
+        String energyBoost = "Energy lift - use a shorter blend";
+        String energyDrop = "Energy drop - use a shorter blend";
+        String minorToMajor = "Mood shift minor to major - blend on a quiet section";
+        String majorToMinor = "Mood shift major to minor - blend on a quiet section";
+        String neighbor = "Smooth - blend over 16-32 bars";
+        String sameKey = "Perfect match - long blend works";
 
         if(val == 0) {
             return clashTip;
         } else if(val == 30) {
             return diagnolTip;
         } else if(val == 50) {
-            return energyBoost;
+            int stepUp = (b.getCamelotNumber() - a.getCamelotNumber() + 12) % 12;
+            if(stepUp == 2) {
+                return energyBoost;
+            } else {
+                return energyDrop;
+            }
         } else if(val == 80) {
             if(a.getCamelotLetter() == b.getCamelotLetter()) {
                 return neighbor;
+            } else if(a.getCamelotLetter() == 'A') {
+                return minorToMajor;
             } else {
-                return otherLetter;
+                return majorToMinor;
             }
         } else if(val == 100) {
             return sameKey;
